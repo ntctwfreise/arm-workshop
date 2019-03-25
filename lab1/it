@@ -1,4 +1,4 @@
-rg=lab1
+rg=ntctwfreise-lab1
 job=job.$(date --utc +"%Y%m%d.%H%M")
 template=./azuredeploy.json
 query='properties.outputs.storageAccount.value'
