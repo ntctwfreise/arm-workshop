@@ -14,22 +14,25 @@
                 "description": "SKU Type"
             }
         },
-        "storageAccount": {
+        "storageAccountPrefix": {
            "type": "string",
+           "defaultValue": "ntctwfreiseSAxxx",
            "metadata": {
                 "description": "SA Name - Universally Unique"
             }
         }
     },
-    "variables": {},
+    "variables": {
+        "storageAccount": "[toLower(concat(parameters('storageAccountPrefix'), uniqueString(resourceGroup().id)))]"
+    },
     "resources": [
         {
-            "type": "Microsoft.Storage/storageAccounts",
+            "type": "Microsoft.Storage/storageAccountPrefixs",
             "apiVersion": "2018-07-01",
-            "name": "[parameters('storageAccount')]",
+            "name": "[parameters('storageAccountPrefix')]",
             "location": "[resourceGroup().location]",
             "tags": {
-                "displayName": "[parameters('storageAccount')]"
+                "displayName": "[parameters('storageAccountPrefix')]"
             },
             "sku": {
                 "name": "Standard_LRS"
