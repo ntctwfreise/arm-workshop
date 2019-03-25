@@ -16,7 +16,8 @@
         },
         "storageAccountPrefix": {
            "type": "string",
-           "defaultValue": "ntctwfreiseSAxxx",
+           "defaultValue": "ntctwfreise",
+           "maxLength": 11,
            "metadata": {
                 "description": "SA Name - Universally Unique"
             }
