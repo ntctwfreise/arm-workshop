@@ -28,7 +28,7 @@
     },
     "resources": [
         {
-            "type": "Microsoft.Storage/storageAccount",
+            "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
             "name": "[parameters('storageAccountPrefix')]",
             "location": "[resourceGroup().location]",
