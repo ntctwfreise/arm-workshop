@@ -1,0 +1,5 @@
+rg=lab1
+job=job.$(date --utc +"%Y%m%d.%H%M")
+template=./azuredeploy.json
+query='properties.outputs.storageAccount.value'
+storageAccount=$(az group deployment create --query "$query" --template-file $template --output tsv --name $job --resource-group $rg)

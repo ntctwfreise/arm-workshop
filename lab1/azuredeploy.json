@@ -43,7 +43,7 @@
     ],
     "outputs": {
         "storageAccount": {
-           "type": "outputType",
+           "type": "String",
            "value": "[variables('storageAccount')]"
         }
     }
