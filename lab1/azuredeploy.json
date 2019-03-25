@@ -1,16 +1,35 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "accountType": {
+           "type": "string",
+           "defaultValue": "Standard_LRS",
+           "allowedValues": [
+               "Standard_LRS",
+               "Premium_LRS",
+               "Standard_RAGRS"
+           ],
+           "metadata": {
+                "description": "SKU Type"
+            }
+        }
+        "storageAccount": {
+           "type": "string",
+           "metadata": {
+                "description": "SA Name - Universally Unique"
+            }
+        }
+    },
     "variables": {},
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
-            "name": "ntctwfreisesa001",
+            "name": "[parameters('storageAccount')]",
             "location": "[resourceGroup().location]",
             "tags": {
-                "displayName": "ntctwfreisesa001"
+                "displayName": "[parameters('storageAccount')]"
             },
             "sku": {
                 "name": "Standard_LRS"
