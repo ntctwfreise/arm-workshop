@@ -1,0 +1,20 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "adminUsername": {
+        "value": "cbit"
+      },
+      "adminPassword": {
+          "reference": {
+              "keyVault": {
+                  "id": "/subscriptions/84c1ef0d-b72b-4197-af1a-c24fa542167b/resourceGroups/ntctwfreise-lab3/providers/Microsoft.KeyVault/vaults/ntctwfreise-kv"
+              },
+              "secretName": "linuxPass"
+          }
+      },
+      "dnsLabelPrefix": {
+        "value": "ntctwfreise"
+      }
+    }
+  }
