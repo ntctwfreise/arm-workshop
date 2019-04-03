@@ -1,4 +1,13 @@
 {
+    "parameters": {
+        "webAppName": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "webAppPlan": "[concat(parameters('webAppName'), '-plan')]",
+        "webAppPlanId": "[resourceId('Microsoft.Web/serverfarms',variables('webAppPlan'))]"
+    },
     "resources": [
         {
             "apiVersion": "2016-08-01",
@@ -26,7 +35,7 @@
                 "name": "[variables('webAppPlan')]",
                 "workerSizeId": "0",
                 "reserved": false,
-                "numberOfWorkers": "1",
+                "numberOfWorkers": "1"
             },
             "sku": {
                 "Tier": "Free",
@@ -34,15 +43,6 @@
             }
         }
     ],
-    "parameters": {
-        "webAppName": {
-            "type": "string"
-        }
-    },
-    "variables": {
-        "webAppPlan": "[concat(parameters('webAppName'), '-plan')]",
-        "webAppPlanId": "[resourceId('Microsoft.Web/serverfarms',variables('webAppPlan'))]"
-    },
     "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0"
 }
