@@ -18,6 +18,12 @@
       },
       "dnsLabelPrefix": {
         "value": "ntctwfreise"
+      },
+      "vnetName": {
+          "value": "ubuntuVnet"
+      },
+      "subnetName": {
+          "value": "ubuntuSubnet"
       }
     }
   }
