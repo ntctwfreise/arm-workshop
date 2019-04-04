@@ -5,9 +5,6 @@
       "adminUsername": {
         "value": "cbit"
       },
-      "vmName": {
-	"value": "ntctwfreise-lab3vm"
-      },
       "adminPassword": {
           "reference": {
               "keyVault": {

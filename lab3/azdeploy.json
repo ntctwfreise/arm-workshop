@@ -2,25 +2,10 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "vmName": {
-            "type": "string",
-            "defaultValue": "MyUbuntuVM"
-        },
       "adminUsername": {
         "type": "string",
         "metadata": {
           "description": "User name for the Virtual Machine."
-        }
-      },
-      "authenticationType": {
-        "type": "string",
-        "defaultValue": "sshPublicKey",
-        "allowedValues": [
-          "sshPublicKey",
-          "password"
-        ],
-        "metadata": {
-          "description": "Type of authentication to use on the Virtual Machine. SSH key is recommended."
         }
       },
       "adminPassword": {
@@ -29,6 +14,13 @@
           "description": "SSH Key or password for the Virtual Machine. SSH key is recommended."
         }
       },
+       "vmName": {
+           "type": "string",
+           "metadata": {
+               "description": "Name for the virtual machine"
+           },
+           "defaultValue": "MyUbuntuVM"
+       },
       "dnsLabelPrefix": {
         "type": "string",
         "metadata": {
@@ -55,6 +47,7 @@
       }
     },
     "variables": {
+      "vmId": "[resourceId('Microsoft.Compute/virtualMachines/', parameters('vmName'))]",
       "storageAccountName": "[concat(uniquestring(resourceGroup().id), 'salinuxvm')]",
       "imagePublisher": "Canonical",
       "imageOffer": "UbuntuServer",
@@ -67,17 +60,6 @@
       "publicIPAddressType": "Dynamic",
       "vmSize": "Standard_A1",
       "virtualNetworkName": "MyVNET",
-      "linuxConfiguration": {
-        "disablePasswordAuthentication": true,
-        "ssh": {
-          "publicKeys": [
-            {
-              "path": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
-              "keyData": "[parameters('adminPassword')]"
-            }
-          ]
-        }
-      },
       "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]"
     },
     "resources": [
@@ -167,8 +149,7 @@
           "osProfile": {
             "computerName": "[parameters('vmName')]",
             "adminUsername": "[parameters('adminUsername')]",
-            "adminPassword": "[parameters('adminPassword')]",
-            "linuxConfiguration": "[if(equals(parameters('authenticationType'), 'password'), json('null'), variables('linuxConfiguration'))]"
+            "adminPassword": "[parameters('adminPassword')]"
           },
           "storageProfile": {
             "imageReference": {
@@ -212,7 +193,11 @@
       "sshCommand": {
         "type": "string",
         "value": "[concat('ssh ', parameters('adminUsername'), '@', reference(variables('publicIPAddressName')).dnsSettings.fqdn)]"
-      }
+      },
+      "osDiskId": {
+        "type": "string",
+        "value": "[reference(variables('vmId')).storageProfile.osDisk.managedDisk.id]"
     }
+  }
   }
   
